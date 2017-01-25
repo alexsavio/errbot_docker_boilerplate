@@ -1,0 +1,10 @@
+Errbot Docker
+=============
+
+This holds boilerplate code for a project using http://errbot.io/[Errbot]
+in a Docker with docker-compose.
+
+It includes an Errbot plugin boilerplate code.
+
+The configuration of the Docker container and the plugin are done with
+https://github.com/willkg/everett[Everett].

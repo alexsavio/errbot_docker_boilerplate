@@ -1,0 +1,9 @@
+[Core]
+Name = PluginDev
+Module = plugin
+
+[Documentation]
+Description = Errbot plugin boilerplate.
+
+[Python]
+Version = 3
