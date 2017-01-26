@@ -3,6 +3,7 @@
 Errbot plugin boilerplate.
 """
 import os.path as path
+from itertools import chain
 
 from everett.manager import ConfigManager, ConfigDictEnv, ConfigEnvFileEnv
 from errbot import BotPlugin, botcmd, arg_botcmd
@@ -33,9 +34,9 @@ def read_config():
     config = ConfigManager([ConfigEnvFileEnv(CONFIG_FILEPATH_CHOICES),
                             ConfigDictEnv(CONFIG_TEMPLATE),
                             ])
-    ## This will build a dict from the configmanager with the Keys
-    ## from CONFIG_TEMPLATE. The problem is that the ConfigManager does not
-    ## know the types of the variables.
+    ##  This will build a dict from the configmanager with the Keys
+    ##  from CONFIG_TEMPLATE. The problem is that the ConfigManager does not
+    ##  know the types of the variables.
     return {config(key, default=val, parser=type(val))
             for key, val in CONFIG_TEMPLATE.items()}
 
@@ -48,7 +49,11 @@ class PluginDev(BotPlugin):
     """Errbot plugin boilerplate."""
 
     def configure(self, configuration):
-        config = read_config()
+        if configuration is None or not configuration:
+            config = read_config()
+        else:
+            config = dict(chain(CONFIG_TEMPLATE.items(),
+                                configuration.items()))
         super().configure(config)
 
     def get_configuration_template(self):
